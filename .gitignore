@@ -1,0 +1,9 @@
+*.swp
+*.tmp
+*~
+*.rst
+*.xml
+*.iml
+*.bat
+Makefile
+.idea
