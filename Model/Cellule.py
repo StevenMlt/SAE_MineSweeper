@@ -20,7 +20,7 @@ def type_cellule(cell: dict) -> bool:
         and (0 <= cell[const.CONTENU] <= 8 or cell[const.CONTENU] == const.ID_MINE)
 
 
-def isContenuCorrect(con : int) -> bool:
+def isContenuCorrect(con: int) -> bool:
     """
     Determine si l'entier passe en parametre peut representer le contenu d'une cellule.
     Si oui, renvoie True, False sinon.
@@ -35,3 +35,18 @@ def isContenuCorrect(con : int) -> bool:
     elif (int(con) < 0 or int(con) > 8) and con != const.ID_MINE:
         isCon = False
     return isCon
+
+
+def construireCellule(con: int = 0, vis: bool = False) -> dict:
+    """
+    Construi une cellule sous la forme d'un dictionnaire, a partir d'un contenu et d'un etat de visibilite.
+
+    :param con: Contenu de la cellule. (0 par deft)
+    :param vis: Etat de la visibilite de la cellule. (False par deft)
+    :return: Un dictionnaire representant la cellule.
+    """
+    if not isContenuCorrect(con):
+        raise ValueError(f"construireCellule : le contenu {con} n’est pas correct")
+    if not isinstance(vis, bool):
+        raise TypeError(f"construireCellule : le second paramètre ({type(vis)}) n’est pas un booléen")
+    return {const.CONTENU: con, const.VISIBLE: vis}
