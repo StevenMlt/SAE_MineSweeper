@@ -72,3 +72,27 @@ def construireGrilleDemineur(li: int, co: int) -> list:
         for column in range(co):
             grille[line].append(construireCellule())
     return grille
+
+
+def getNbLignesGrilleDemineur(grille: list) -> int:
+    """
+    Determine le nombre de lignes d'une grille de demineur passee en parametre.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: Le nombre de lignes de la grille.
+    """
+    if not type_grille_demineur(grille):
+        raise TypeError("getNbLignesGrilleDemineur : Le paramètre n’est pas une grille")
+    return len(grille)
+
+
+def getNbColonnesGrilleDemineur(grille: list) -> int:
+    """
+    Determine le nombre de colonnes d'une grille de demineur passee en parametre.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: Le nombre de colonnes de la grille.
+    """
+    if not type_grille_demineur(grille):
+        raise TypeError("getNbColonnesGrilleDemineur : Le paramètre n’est pas une grille")
+    return len(grille[0])
