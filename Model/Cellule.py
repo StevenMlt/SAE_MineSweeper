@@ -37,7 +37,7 @@ def isContenuCorrect(con: int) -> bool:
     return isCon
 
 
-def construireCellule(con: int = 0, vis: bool = False) -> dict:
+def construireCellule(contenu: int = 0, visible: bool = False) -> dict:
     """
     Construi une cellule sous la forme d'un dictionnaire, a partir d'un contenu et d'un etat de visibilite.
 
@@ -45,8 +45,78 @@ def construireCellule(con: int = 0, vis: bool = False) -> dict:
     :param vis: Etat de la visibilite de la cellule. (False par deft)
     :return: Un dictionnaire representant la cellule.
     """
-    if not isContenuCorrect(con):
-        raise ValueError(f"construireCellule : le contenu {con} n’est pas correct")
-    if not isinstance(vis, bool):
-        raise TypeError(f"construireCellule : le second paramètre ({type(vis)}) n’est pas un booléen")
-    return {const.CONTENU: con, const.VISIBLE: vis}
+    if not isContenuCorrect(contenu):
+        raise ValueError(f"construireCellule : le contenu {contenu} n’est pas correct")
+    elif not isinstance(visible, bool):
+        raise TypeError(f"construireCellule : le second paramètre ({type(visible)}) n’est pas un booléen")
+    return {const.CONTENU: contenu, const.VISIBLE: visible}
+
+
+def getContenuCellule(dic: dict) -> int:
+    """
+    Renvoie le contenu d'un dictionnaire representant une cellule.
+
+    :param dic: Cellule sous la forme d'un dictionnaire
+    :return: Renvoie de contenu du dictionnaire (cellule)
+    """
+    if not type_cellule(dic):
+        raise TypeError("getContenuCellule : Le paramètre n’est pas une cellule.")
+    return dic.get(const.CONTENU)
+
+
+def isVisibleCellule(dic: dict) -> bool:
+    """
+    Renvoie l'etat de visibilite de la cellule (dico).
+
+    :param dic: representation de la cellule.
+    :return: True si cellule visible, False sinon.
+    """
+    if not type_cellule(dic):
+        raise TypeError("getContenuCellule : Le paramètre n’est pas une cellule.")
+    return dic.get(const.VISIBLE)
+
+
+def setContenuCellule(dic: dict, contenu: int) -> None:
+    """
+    Modifie le contenu de la cellule (dic) avec le contenu passe en parametre.
+
+    :param dic: Representation de la cellule.
+    :param contenu: Contenu que l'on veut integrer dans la cellule.
+    :return: Rien.
+    """
+    if type(contenu) != int:
+        raise TypeError("setContenuCellule : Le second paramètre n’est pas un entier.")
+    elif not isContenuCorrect(contenu):
+        raise ValueError(f"setContenuCellule: la valeur du contenu {contenu} n'est pas correcte.")
+    elif not type_cellule(dic):
+        raise TypeError("setContenuCellule : Le premier paramètre n’est pas une cellule.")
+    dic[const.CONTENU] = contenu
+    return None
+
+
+def setVisibleCellule(dic: dict, visible: bool) -> None:
+    """
+    Modifie la visibilite de la cellule (dic) avec la visibilite passee en parametre.
+
+    :param dic: Representation de la cellule.
+    :param visible: Visibilite que l'on veut integrer dans la cellule.
+    :return: Rien.
+    """
+    if not type_cellule(dic):
+        raise TypeError("setVisibleCellule : Le premier paramètre n’est pas une cellule.")
+    elif type(visible) != bool:
+        raise TypeError("setVisibleCellule : Le second paramètre n’est pas un booléen")
+    dic[const.VISIBLE] = visible
+    return None
+
+
+def contientMineCellule(dic: dict) -> bool:
+    """
+    Determine si une cellule(dic) contient une mine ou non.
+
+    :param dic: Representation de la cellule.
+    :return: True si la cellule contient une mine, False sinon.
+    """
+    if not type_cellule(dic):
+        raise TypeError("contientMineCellule : Le paramètre n’est pas une cellule.")
+    return dic.get(const.CONTENU) == const.ID_MINE
