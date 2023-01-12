@@ -96,3 +96,34 @@ def getNbColonnesGrilleDemineur(grille: list) -> int:
     if not type_grille_demineur(grille):
         raise TypeError("getNbColonnesGrilleDemineur : Le paramètre n’est pas une grille")
     return len(grille[0])
+
+
+def isCoordonneeCorrecte(grille: list, coord: tuple) -> bool:
+    """
+    Verifie si la coordonnee passee en parametre est contenue dans la grille aussi passee en parametre.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :return: True si les coordonnees correspondent a une cellule, False sinon.
+    """
+    if type(grille) != list or not type_grille_demineur(grille) or type(coord) != tuple:
+        raise TypeError("isCoordonneeCorrecte : un des paramètres n’est pas du bon type.")
+    presCell = False
+    if coord[0] <= getNbLignesGrilleDemineur(grille)-1 and coord[1] <= getNbColonnesGrilleDemineur(grille)-1:
+        presCell = type_cellule(grille[coord[0]][coord[1]])
+    return presCell
+
+
+def getCelluleGrilleDemineur(grille: list, coord: tuple) -> dict:
+    """
+    Retourne la cellule se trouvant a la coordonnee passee en parametre dans la grille egalement passee en parametre.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :return: Cellule(dict) designee par les coordonnees passees en parametre.
+    """
+    if type(grille) != list or not type_grille_demineur(grille) or type(coord) != tuple:
+        raise TypeError("getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
+    elif not isCoordonneeCorrecte(grille, coord):
+        raise IndexError("getCelluleGrilleDemineur : coordonnée non contenue dans la grille.")
+    return grille[coord[0]][coord[1]]
