@@ -20,3 +20,18 @@ def type_cellule(cell: dict) -> bool:
         and (0 <= cell[const.CONTENU] <= 8 or cell[const.CONTENU] == const.ID_MINE)
 
 
+def isContenuCorrect(con : int) -> bool:
+    """
+    Determine si l'entier passe en parametre peut representer le contenu d'une cellule.
+    Si oui, renvoie True, False sinon.
+
+    :param con: Entier cense representer le contenu d'une cellule.
+    :return: True ou False en fonction de si le param represente un contenu ou non.
+    """
+    isCon = True
+    print(con)
+    if not isinstance(con, int):
+        isCon = False
+    elif (int(con) < 0 or int(con) > 8) and con != const.ID_MINE:
+        isCon = False
+    return isCon
