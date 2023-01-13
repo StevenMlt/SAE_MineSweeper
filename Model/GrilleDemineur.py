@@ -399,3 +399,33 @@ def decouvrirGrilleDemineur(grille: list, coord: tuple) -> set:
                         cellAVerifier.append(voisin)
             '''Tant que la liste des voisins à vérifier n'est pas vide, on en reprend un et on le vérifie à son tour.'''
     return cellDecouvertes
+
+
+def simplifierGrilleDemineur(grille: list, coord: tuple) -> set:
+    """
+    Verifie deja que la case cliquee est bien visible. Si ce n’est pas le cas, elle ne fait rien (elle retourne un
+    ensemble vide). Dans le cas ou la case est visible, la fonction compte le nombre de drapeaux dans le voisinage de
+    cette case. Si ce nombre correspond exactement au contenu de la case, la fonction rend toutes les autres cases
+    voisines visibles. On relance alors le procede sur les cases rendues visibles. La fonction retourne l’ensemble des
+    coordonnees des cases rendues visibles.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnees de la case cliquee au depart.
+    :return: Si la case cliquee est visible, renvoie l'ensemble des coordonnees des cases rendues visibles, sinon
+    renvoie un ensemble vide.
+    """
+
+    return None
+
+
+def ajouterFlagsGrilleDemineur(grille: list, coord: tuple) -> set:
+    """
+    Si le contenu de la cellule passee en parametre correspond au nombre de cases non decouvertes dans le voisinage,
+    alors la fonction place un drapeau sur celles qui n’en n’ont pas.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnees de la cellule dont on souhaite analyser les voisins.
+    :return:  L’ensemble des coordonnees des cellules sur lesquelles elle a place un drapeau.
+    """
+
+    return None
