@@ -130,3 +130,18 @@ def isAnnotationCorrecte(annotation: str) -> bool:
     if annotation in valide:
         annOK = True
     return annOK
+
+
+def getAnnotationCellule(cell: dict) -> str:
+    """
+    Renvoie l'annotation contenue dans la cellule passee en parametre.
+
+    :param cell: Cellule sous la forme d'un dictionnaire.
+    :return: L'annotation contenue dans la cellule. (None, const.DOUTE ou const.FLAG)
+    """
+    if not type_cellule(cell):
+        raise TypeError(f"getAnnotationCellule : le paramètre {cell} n’est pas une cellule")
+    ann = cell.get(const.ANNOTATION)
+    if const.ANNOTATION not in cell.keys():
+        ann = None
+    return ann
