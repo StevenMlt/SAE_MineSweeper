@@ -318,6 +318,8 @@ def gagneGrilleDemineur(grille: list) -> bool:
                 gagne = False
             elif contientMineCellule(cell) and isVisibleCellule(cell):
                 gagne = False
+            elif contientMineCellule(cell) and getAnnotationCellule(cell) != const.FLAG:
+                gagne = False
     return gagne
 
 
