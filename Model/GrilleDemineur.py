@@ -319,3 +319,20 @@ def gagneGrilleDemineur(grille: list) -> bool:
             elif contientMineCellule(cell) and isVisibleCellule(cell):
                 gagne = False
     return gagne
+
+
+def perduGrilleDemineur(grille: list) -> bool:
+    """
+    Determine si la partie a ete perdue ou non.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: True si une cellule contenant une mine est visible, False sinon.
+    """
+    perdu = False
+    dimensionsGrille = (getNbLignesGrilleDemineur(grille), getNbColonnesGrilleDemineur(grille))
+    for line in range(dimensionsGrille[0]):
+        for column in range(dimensionsGrille[1]):
+            cell = grille[line][column]
+            if contientMineCellule(cell) and isVisibleCellule(cell):
+                perdu = True
+    return perdu
