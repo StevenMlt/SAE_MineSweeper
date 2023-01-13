@@ -284,3 +284,19 @@ def getAnnotationGrilleDemineur(grille: list, coord: tuple) -> str:
     :return: L'annotation de la cellule.
     """
     return getAnnotationCellule(getCelluleGrilleDemineur(grille, coord))
+
+
+def getMinesRestantesGrilleDemineur(grille: list) -> int:
+    """
+    Compte le nombre de mines restantes a marquer.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: Le nombre (nb) de mines.
+    """
+    nb = 0
+    dimensionsGrille = (getNbLignesGrilleDemineur(grille), getNbColonnesGrilleDemineur(grille))
+    for line in range(dimensionsGrille[0]):
+        for column in range(dimensionsGrille[1]):
+            if grille[line][column].get(const.ANNOTATION) == const.FLAG:
+                nb += 1
+    return getNbMinesGrilleDemineur(grille) - nb
