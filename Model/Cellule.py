@@ -145,3 +145,21 @@ def getAnnotationCellule(cell: dict) -> str:
     if const.ANNOTATION not in cell.keys():
         ann = None
     return ann
+
+
+def changeAnnotationCellule(cell: dict) -> None:
+    """
+    Modifie l’annotation de la cellule passee en parametre selon le cycle : None, const.FLAG, const.DOUTE.
+
+    :param cell: Cellule dont on veut modifier l'annotation.
+    :return: Rien.
+    """
+    if not type_cellule(cell):
+        raise TypeError("changeAnnotationCellule : le paramètre n’est pas une cellule")
+    if getAnnotationCellule(cell) == None:
+        cell[const.ANNOTATION] = const.FLAG
+    elif getAnnotationCellule(cell) == const.FLAG:
+        cell[const.ANNOTATION] = const.DOUTE
+    else:
+        cell[const.ANNOTATION] = None
+    return None
