@@ -365,22 +365,37 @@ def decouvrirGrilleDemineur(grille: list, coord: tuple) -> set:
     :param coord: Coordonnees de la premiere cellule decouverte par l'utilisateur.
     :return: L’ensemble des coordonnees des cellules rendues visibles.
     """
+    ''' On commence par rendre visible la première cellule cliquée, et on l'ajoute dans le set des cellules rendues 
+    visibles (cellDecouvertes)'''
     setVisibleGrilleDemineur(grille, coord, True)
     cellDecouvertes = set()
     cellDecouvertes.add(coord)
+
     if getContenuGrilleDemineur(grille, coord) == 0:
+        ''' Ensuite, si cette même cellule n'a aucune mine dans ses voisins'''
         cellAVerifier = []
+        ''' On établi une liste des potentiels voisins à vérifier, c'est-à-dire ceux qui pourraient 
+        eux aussi n'avoir aucune mine dans leur entourage'''
         voisins = getCoordonneeVoisinsGrilleDemineur(grille, coord)
+        '''On récupère les 8 voisins de la première cellule'''
         for voisin in voisins:
+            '''Et on les ajoute à la liste des voisins/cellules à vérifier'''
             if voisin not in cellAVerifier:
                 cellAVerifier.append(voisin)
+
         while cellAVerifier != []:
+            '''Ensuite, tant qu'il restera des voisins à vérifier dans la liste'''
             temp = cellAVerifier.pop()
+            '''On en enlève un pour le vérifier. Puis on le rends visible et on l'ajoute au set des cellules découvertes.'''
             setVisibleGrilleDemineur(grille, temp, True)
             cellDecouvertes.add(temp)
+
             if getContenuGrilleDemineur(grille, temp) == 0:
+                '''Si ce voisin s'avère n'avoir effectivement aucune mine autour de lui, on récupère ses voisins et si ils 
+                n'étaient ni déjà vérifiés ni dans la liste des voisins à vérifier, on les ajoute dans cette dernière.'''
                 voisins = getCoordonneeVoisinsGrilleDemineur(grille, temp)
                 for voisin in voisins:
                     if voisin not in cellAVerifier and voisin not in cellDecouvertes:
                         cellAVerifier.append(voisin)
+            '''Tant que la liste des voisins à vérifier n'est pas vide, on en reprend un et on le vérifie à son tour.'''
     return cellDecouvertes
