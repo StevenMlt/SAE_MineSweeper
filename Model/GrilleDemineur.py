@@ -300,3 +300,22 @@ def getMinesRestantesGrilleDemineur(grille: list) -> int:
             if grille[line][column].get(const.ANNOTATION) == const.FLAG:
                 nb += 1
     return getNbMinesGrilleDemineur(grille) - nb
+
+
+def gagneGrilleDemineur(grille: list) -> bool:
+    """
+    Determine si la partie est gagnee en fonction de si toutes les cases ne contenant pas de mines sont decouvertes.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: True si toutes les cases vides ont ete decouvertes, False sinon.
+    """
+    gagne = True
+    dimensionsGrille = (getNbLignesGrilleDemineur(grille), getNbColonnesGrilleDemineur(grille))
+    for line in range(dimensionsGrille[0]):
+        for column in range(dimensionsGrille[1]):
+            cell = grille[line][column]
+            if not contientMineCellule(cell) and not isVisibleCellule(cell):
+                gagne = False
+            elif contientMineCellule(cell) and isVisibleCellule(cell):
+                gagne = False
+    return gagne
