@@ -122,8 +122,71 @@ def getCelluleGrilleDemineur(grille: list, coord: tuple) -> dict:
     :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
     :return: Cellule(dict) designee par les coordonnees passees en parametre.
     """
-    if type(grille) != list or not type_grille_demineur(grille) or type(coord) != tuple:
-        raise TypeError("getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
-    elif not isCoordonneeCorrecte(grille, coord):
+    if not isCoordonneeCorrecte(grille, coord):
         raise IndexError("getCelluleGrilleDemineur : coordonnée non contenue dans la grille.")
+    elif type(grille) != list or not type_grille_demineur(grille) or type(coord) != tuple:
+        raise TypeError("getCelluleGrilleDemineur : un des paramètres n’est pas du bon type.")
     return grille[coord[0]][coord[1]]
+
+
+def getContenuGrilleDemineur(grille: list, coord: tuple) -> int:
+    """
+    Retourne le contenu de la cellule se trouvant a la coordonnee passee en parametre dans la grille passee en
+    parametre.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :return: Contenu de la cellule passee en parametre.
+    """
+    return getCelluleGrilleDemineur(grille, coord).get(const.CONTENU)
+
+
+def setContenuGrilleDemineur(grille: list, coord: tuple, contenu: int) -> None:
+    """
+    Modifie le contenu de la cellule se trouvant a la coordonnee passee en parametre dans la grille passee en
+    parametre avec le nouveau contenu.
+
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param contenu: Nouveau contenu a attribuer dans la cellule designee par les coord.
+    :return: Rien.
+    """
+    setContenuCellule(getCelluleGrilleDemineur(grille, coord), contenu)
+    return None
+
+
+def isVisibleGrilleDemineur(grille: list, coord: tuple) -> bool:
+    """
+    Verifie si la cellule de la grille passee en parametre est visible ou non.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :return: Renvoie True si la cellule est visible, False sinon.
+    """
+    return isVisibleCellule(getCelluleGrilleDemineur(grille, coord))
+
+
+def setVisibleGrilleDemineur(grille: list, coord: tuple, visible: bool) -> None:
+    """
+    Modifie la visibilite de la cellule se trouvant a la coordonnee passee en parametre dans la grille passee en
+    parametre avec la nouvelle visibilite.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param visible: Nouvel etat de visibilite de la cellule designee.
+    :return: Rien.
+    """
+    setVisibleCellule(getCelluleGrilleDemineur(grille, coord), visible)
+    return None
+
+
+def contientMineGrilleDemineur(grille: list, coord: tuple) -> bool:
+    """
+    Vérifie si la cellule designee en parametre contient une mine ou non.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :return: True si la cellule contient une mine, False sinon.
+    """
+    return contientMineCellule(getCelluleGrilleDemineur(grille, coord))
