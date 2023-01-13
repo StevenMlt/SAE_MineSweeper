@@ -103,7 +103,7 @@ def isCoordonneeCorrecte(grille: list, coord: tuple) -> bool:
     Verifie si la coordonnee passee en parametre est contenue dans la grille aussi passee en parametre.
 
     :param grille: Liste de listes representant une grille de demineur.
-    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
     :return: True si les coordonnees correspondent a une cellule, False sinon.
     """
     if type(grille) != list or not type_grille_demineur(grille) or type(coord) != tuple:
@@ -119,7 +119,7 @@ def getCelluleGrilleDemineur(grille: list, coord: tuple) -> dict:
     Retourne la cellule se trouvant a la coordonnee passee en parametre dans la grille egalement passee en parametre.
 
     :param grille: Liste de listes representant une grille de demineur.
-    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
     :return: Cellule(dict) designee par les coordonnees passees en parametre.
     """
     if not isCoordonneeCorrecte(grille, coord):
@@ -135,7 +135,7 @@ def getContenuGrilleDemineur(grille: list, coord: tuple) -> int:
     parametre.
 
     :param grille: Liste de listes representant une grille de demineur.
-    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
     :return: Contenu de la cellule passee en parametre.
     """
     return getCelluleGrilleDemineur(grille, coord).get(const.CONTENU)
@@ -148,7 +148,7 @@ def setContenuGrilleDemineur(grille: list, coord: tuple, contenu: int) -> None:
 
 
     :param grille: Liste de listes representant une grille de demineur.
-    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
     :param contenu: Nouveau contenu a attribuer dans la cellule designee par les coord.
     :return: Rien.
     """
@@ -161,7 +161,7 @@ def isVisibleGrilleDemineur(grille: list, coord: tuple) -> bool:
     Verifie si la cellule de la grille passee en parametre est visible ou non.
 
     :param grille: Liste de listes representant une grille de demineur.
-    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
     :return: Renvoie True si la cellule est visible, False sinon.
     """
     return isVisibleCellule(getCelluleGrilleDemineur(grille, coord))
@@ -173,7 +173,7 @@ def setVisibleGrilleDemineur(grille: list, coord: tuple, visible: bool) -> None:
     parametre avec la nouvelle visibilite.
 
     :param grille: Liste de listes representant une grille de demineur.
-    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
     :param visible: Nouvel etat de visibilite de la cellule designee.
     :return: Rien.
     """
@@ -186,7 +186,29 @@ def contientMineGrilleDemineur(grille: list, coord: tuple) -> bool:
     Vérifie si la cellule designee en parametre contient une mine ou non.
 
     :param grille: Liste de listes representant une grille de demineur.
-    :param coord: Coordonnee supposees d'une cellule, sous la forme d'un tuple.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
     :return: True si la cellule contient une mine, False sinon.
     """
     return contientMineCellule(getCelluleGrilleDemineur(grille, coord))
+
+
+def getCoordonneeVoisinsGrilleDemineur(grille: list, coord: tuple) -> list:
+    """
+    Retourne dans une liste la liste des coordonnees des cellules voisines de la cellule designee en params.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnees supposees d'une cellule, sous la forme d'un tuple.
+    :return: Liste des coordonnees des cellules voisines.
+    """
+    if not type_grille_demineur(grille) or type(coord) != tuple:
+        raise TypeError("getCoordonneeVoisinsGrilleDemineur : un des paramètres n’est pas du bon type")
+    elif not isCoordonneeCorrecte(grille, coord):
+        raise IndexError("getCoordonneeVoisinsGrilleDemineur : la coordonnée n’est pas dans la grille.")
+    voisins = []
+    for line in range(-1, 2):
+        for column in range(-1, 2):
+            temp = (coord[0] + line, coord[1] + column)
+            if (temp[0] >= 0 and temp[1] >= 0) and (temp[0] < getNbLignesGrilleDemineur(grille) and temp[1] < getNbColonnesGrilleDemineur(grille)) and temp != coord:
+                voisins.append(temp)
+    return voisins
+
