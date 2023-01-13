@@ -234,3 +234,23 @@ def placerMinesGrilleDemineur(grille: list, nb: int, coord: tuple) -> None:
             setContenuGrilleDemineur(grille, coordMine, const.ID_MINE)
             nb -= 1
     return None
+
+
+def compterMinesVoisinesGrilleDemineur(grille: list) -> None:
+    """
+    Pour chaque case ne contenant pas de mine, compte le nombre de mines voisines de cette case et affecte ce nombre au
+    contenu de la case.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: Rien.
+    """
+    dimensionsGrille = (getNbLignesGrilleDemineur(grille), getNbColonnesGrilleDemineur(grille))
+    for line in range(dimensionsGrille[0]):
+        for column in range(dimensionsGrille[1]):
+            if not contientMineGrilleDemineur(grille, (line, column)):
+                cptMinesVoisines = 0
+                for voisin in getCoordonneeVoisinsGrilleDemineur(grille, (line, column)):
+                    if contientMineGrilleDemineur(grille, voisin):
+                        cptMinesVoisines += 1
+                setContenuGrilleDemineur(grille, (line, column), cptMinesVoisines)
+    return None
