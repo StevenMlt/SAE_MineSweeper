@@ -273,3 +273,14 @@ def getNbMinesGrilleDemineur(grille: list) -> int:
             if contientMineGrilleDemineur(grille, (line, column)):
                 cptMines += 1
     return cptMines
+
+
+def getAnnotationGrilleDemineur(grille: list, coord: tuple) -> str:
+    """
+    Retourne l'annotation de la cellule dont les coordonnees sont passees en parametre.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnees de la cellule selectionnee.
+    :return: L'annotation de la cellule.
+    """
+    return getAnnotationCellule(getCelluleGrilleDemineur(grille, coord))
