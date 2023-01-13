@@ -29,10 +29,7 @@ def isContenuCorrect(con: int) -> bool:
     :return: True ou False en fonction de si le param represente un contenu ou non.
     """
     isCon = True
-    print(con)
-    if not isinstance(con, int):
-        isCon = False
-    elif (int(con) < 0 or int(con) > 8) and con != const.ID_MINE:
+    if not isinstance(con, int) or ((int(con) < 0 or int(con) > 8) and con != const.ID_MINE):
         isCon = False
     return isCon
 
