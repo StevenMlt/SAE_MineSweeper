@@ -46,7 +46,7 @@ def construireCellule(contenu: int = 0, visible: bool = False) -> dict:
         raise ValueError(f"construireCellule : le contenu {contenu} n’est pas correct")
     elif not isinstance(visible, bool):
         raise TypeError(f"construireCellule : le second paramètre ({type(visible)}) n’est pas un booléen")
-    return {const.CONTENU: contenu, const.VISIBLE: visible}
+    return {const.CONTENU: contenu, const.VISIBLE: visible, const.ANNOTATION: None}
 
 
 def getContenuCellule(dic: dict) -> int:
@@ -117,3 +117,16 @@ def contientMineCellule(dic: dict) -> bool:
     if not type_cellule(dic):
         raise TypeError("contientMineCellule : Le paramètre n’est pas une cellule.")
     return dic.get(const.CONTENU) == const.ID_MINE
+
+def isAnnotationCorrecte(annotation: str) -> bool:
+    """
+    Verifie si l'annotation passee en parametre est correcte.
+    
+    :param annotation: str representant l'etat de l'annotation d'une cellule.
+    :return: True si l'annotation vaut (None, const.DOUTE ou const.FLAG), False sinon.
+    """
+    annOK = False
+    valide = [None, const.DOUTE, const.FLAG]
+    if annotation in valide:
+        annOK = True
+    return annOK
