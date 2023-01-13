@@ -212,3 +212,25 @@ def getCoordonneeVoisinsGrilleDemineur(grille: list, coord: tuple) -> list:
                 voisins.append(temp)
     return voisins
 
+
+def placerMinesGrilleDemineur(grille: list, nb: int, coord: tuple) -> None:
+    """
+    Place exactement nb mines dans nb cellules de la grille en evitant celle dont la coordonnee est passee en parametre.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param nb: Nombre de mines à placer.
+    :param coord: Coordonnees de la premiere cellule cliquee, ne doit pas contenir de mines.
+    :return: Rien.
+    """
+    dimensionsGrille = (getNbLignesGrilleDemineur(grille), getNbColonnesGrilleDemineur(grille))
+    nbCasesGrille = dimensionsGrille[0] * dimensionsGrille[1]
+    if nb < 0 or nb > (nbCasesGrille - 1):
+        raise ValueError("placerMinesGrilleDemineur : Nombre de bombes à placer incorrect")
+    elif not isCoordonneeCorrecte(grille, coord):
+        raise IndexError("placerMinesGrilleDemineur : la coordonnée n’est pas dans la grille.")
+    while nb > 0:
+        coordMine = (randint(0, dimensionsGrille[0]-1), randint(0, dimensionsGrille[1]-1))
+        if coordMine != coord and not contientMineGrilleDemineur(grille, coordMine):
+            setContenuGrilleDemineur(grille, coordMine, const.ID_MINE)
+            nb -= 1
+    return None
