@@ -353,3 +353,34 @@ def reinitialiserGrilleDemineur(grille: list) -> None:
             cell = grille[line][column]
             reinitialiserCellule(cell)
     return None
+
+
+def decouvrirGrilleDemineur(grille: list, coord: tuple) -> set:
+    """
+    Decouvre (rend visible) la cellule correspondant a la coordonnee passee en parametre.
+    Si cette cellule contient 0 mines dans le voisinage, la fonction decouvre les cellules dans le voisinage.
+    Si une des cellules du voisinage contient 0 mine, on relance le processus.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :param coord: Coordonnees de la premiere cellule decouverte par l'utilisateur.
+    :return: L’ensemble des coordonnees des cellules rendues visibles.
+    """
+    setVisibleGrilleDemineur(grille, coord, True)
+    cellDecouvertes = set()
+    cellDecouvertes.add(coord)
+    if getContenuGrilleDemineur(grille, coord) == 0:
+        cellAVerifier = []
+        voisins = getCoordonneeVoisinsGrilleDemineur(grille, coord)
+        for voisin in voisins:
+            if voisin not in cellAVerifier:
+                cellAVerifier.append(voisin)
+        while cellAVerifier != []:
+            temp = cellAVerifier.pop()
+            setVisibleGrilleDemineur(grille, temp, True)
+            cellDecouvertes.add(temp)
+            if getContenuGrilleDemineur(grille, temp) == 0:
+                voisins = getCoordonneeVoisinsGrilleDemineur(grille, temp)
+                for voisin in voisins:
+                    if voisin not in cellAVerifier and voisin not in cellDecouvertes:
+                        cellAVerifier.append(voisin)
+    return cellDecouvertes
