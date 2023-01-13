@@ -233,6 +233,7 @@ def placerMinesGrilleDemineur(grille: list, nb: int, coord: tuple) -> None:
         if coordMine != coord and not contientMineGrilleDemineur(grille, coordMine):
             setContenuGrilleDemineur(grille, coordMine, const.ID_MINE)
             nb -= 1
+    compterMinesVoisinesGrilleDemineur(grille)
     return None
 
 
