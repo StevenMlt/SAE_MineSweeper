@@ -163,3 +163,16 @@ def changeAnnotationCellule(cell: dict) -> None:
     else:
         cell[const.ANNOTATION] = None
     return None
+
+
+def reinitialiserCellule(cell: dict) -> None:
+    """
+    Reinitialise les parametres de la cellule passee en parametre.
+
+    :param cell: Cellule que l'on souhaite reinitialiser,toujours sous forme de dictionnaire.
+    :return: Rien.
+    """
+    cell[const.CONTENU] = 0
+    cell[const.VISIBLE] = False
+    cell[const.ANNOTATION] = None
+    return None

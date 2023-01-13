@@ -338,3 +338,18 @@ def perduGrilleDemineur(grille: list) -> bool:
             if contientMineCellule(cell) and isVisibleCellule(cell):
                 perdu = True
     return perdu
+
+
+def reinitialiserGrilleDemineur(grille: list) -> None:
+    """
+    Reinitialise toutes les cellules de la grille de Demineur.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: Rien.
+    """
+    dimensionsGrille = (getNbLignesGrilleDemineur(grille), getNbColonnesGrilleDemineur(grille))
+    for line in range(dimensionsGrille[0]):
+        for column in range(dimensionsGrille[1]):
+            cell = grille[line][column]
+            reinitialiserCellule(cell)
+    return None
