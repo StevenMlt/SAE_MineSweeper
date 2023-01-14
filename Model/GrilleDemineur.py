@@ -456,3 +456,27 @@ def ajouterFlagsGrilleDemineur(grille: list, coord: tuple) -> set:
         for cell in cellFlag:
             changeAnnotationCellule(cell)
     return cellFlag
+
+
+def simplifierToutGrilleDemineur(grille: list) -> tuple:
+    """
+    Parcourt toutes les cellules de la grille et tente de les simplifier en appelant simplifierGrilleDemineur et
+    ajouterFlagsGrilleDemineur. Tant qu’il y a des modifications, la fonction reparcourt les cellules pour trouver
+    des simplifications.
+
+    :param grille: Liste de listes representant une grille de demineur.
+    :return: Un tuple contenant en premier l’ensemble des coordonnees des cellules rendues visible et en second
+    l’ensemble des coordonnees des cellules sur lesquelles a ete ajoute un drapeau.
+    """
+    modif = True
+    setCellVisible = set()
+    setCellFlag = set()
+    while modif:
+        grilleCopie = grille.copy()
+        for line in range(getNbLignesGrilleDemineur(grille)):
+            for column in range(getNbColonnesGrilleDemineur(grille)):
+                setCellVisible = setCellVisible | simplifierGrilleDemineur(grille, (line, column))
+                setCellFlag = setCellFlag | ajouterFlagsGrilleDemineur(grille, (line, column))
+        if grille == grilleCopie:
+            modif = False
+    return (setCellVisible, setCellFlag)
