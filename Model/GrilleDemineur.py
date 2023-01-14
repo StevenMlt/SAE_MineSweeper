@@ -445,5 +445,14 @@ def ajouterFlagsGrilleDemineur(grille: list, coord: tuple) -> set:
     :param coord: Coordonnees de la cellule dont on souhaite analyser les voisins.
     :return:  L’ensemble des coordonnees des cellules sur lesquelles elle a place un drapeau.
     """
-
-    return None
+    cellFlag = set()
+    nbCellNonVisible = 0
+    voisins = getCoordonneeVoisinsGrilleDemineur(grille, coord)
+    for voisin in voisins:
+        if not isVisibleGrilleDemineur(grille, voisin):
+            nbCellNonVisible += 1
+            cellFlag.add(voisin)
+    if nbCellNonVisible == getContenuGrilleDemineur(grille, coord):
+        for cell in cellFlag:
+            changeAnnotationCellule(cell)
+    return cellFlag
