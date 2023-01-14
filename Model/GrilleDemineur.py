@@ -414,8 +414,26 @@ def simplifierGrilleDemineur(grille: list, coord: tuple) -> set:
     :return: Si la case cliquee est visible, renvoie l'ensemble des coordonnees des cases rendues visibles, sinon
     renvoie un ensemble vide.
     """
-
-    return None
+    if isVisibleGrilleDemineur(grille, coord):
+        cellAVerifier = set([coord])
+        cellDecouvertes = set()
+        while cellAVerifier != set():
+            temp = cellAVerifier.pop()
+            voisins = getCoordonneeVoisinsGrilleDemineur(grille, temp)
+            cptFlag = 0
+            for voisin in voisins:
+                if getAnnotationGrilleDemineur(grille, voisin) == const.FLAG:
+                    cptFlag += 1
+            if cptFlag == getContenuGrilleDemineur(grille, temp):
+                for voisin in voisins:
+                    if voisin not in (cellAVerifier | cellDecouvertes) and getAnnotationGrilleDemineur(grille, voisin) != const.FLAG:
+                        cellAVerifier.add(voisin)
+                    if not contientMineGrilleDemineur(grille, voisin) and getAnnotationGrilleDemineur(grille, voisin) != const.FLAG:
+                        setVisibleGrilleDemineur(grille, voisin, True)
+                        cellDecouvertes.add(voisin)
+    else:
+        cellDecouvertes = set()
+    return cellDecouvertes
 
 
 def ajouterFlagsGrilleDemineur(grille: list, coord: tuple) -> set:
